@@ -7,60 +7,59 @@ body {
     margin: 0 auto;
     width: 100%;   
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 15px; 
+    overflow-x: hidden; 
 }
 
+#sticker-container {
+    padding-top: 15%;
+
+    width: 260px;  
+    height: 260px;
+    margin: 0 auto;
+    position: relative;
+    display: block;
+    transition: transform 0.6s ease-in-out;
+}
+
+.move-sticker {
+    transform: translate(0px, -50px) scale(0.8) !important;
+}
 
 .container_firstmeet {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
-    font-size: 20px;
+    margin-top: 15px;
+    font-size: 18px; 
     text-align: center;
 
     width: 100%;
-    max-width: 500px;
+    max-width: 400px; 
     box-sizing: border-box;
 }
 
-
 .description {
-    padding-top: 15px;
-    width: 100%;        
-    max-width: 350px;   
+    padding-top: 12px;
+    width: 100%;
+    max-width: 300px;
     text-align: center;
-    box-sizing: border-box;
+    font-size: 16px; 
 }
 
 .continue_btt {
     margin-top: 20px;
 
-    height: 45px;
-    width: 100%;        
-    max-width: 200px;
+    height: 42px;
+    width: 160px; 
 
     border: 1px solid #9b9b9b;
     border-radius: 5px;
+
     background-color: rgb(245, 245, 245);
-    font-size: 16px;
+    font-size: 15px;
     color: rgb(54, 54, 54);
     cursor: pointer;
-}
-
-#sticker-container {
-    padding-top: 10%;
-    width: 100%;
-    max-width: 300px;   
-    height: 300px;
-    margin: 0 auto;
-    position: relative;
-    display: inline-block;
-    transition: transform 0.6s ease-in-out;
-}
-
-.move-sticker {
-    transform: translate(0px, -40px) scale(0.8) !important;
 }
 
 .fixed-bottom {
@@ -72,12 +71,13 @@ body {
 
 .restartBtt {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+
     border: 0px solid #9b9b9b;
     border-radius: 5px;
     background-color: rgba(245, 245, 245, 0);
-    font-size: 14px;
-    color: rgba(54, 54, 54, 0.4);
+    font-size: 13px;
+    color: rgba(54, 54, 54, 0.3);
     cursor: pointer;
 }
 
@@ -94,16 +94,3 @@ body {
 .ubuntu-regular-italic { font-family: "Ubuntu", sans-serif; font-weight: 400; font-style: italic; }
 .ubuntu-medium-italic { font-family: "Ubuntu", sans-serif; font-weight: 500; font-style: italic; }
 .ubuntu-bold-italic { font-family: "Ubuntu", sans-serif; font-weight: 700; font-style: italic; }
-
-@media (max-width: 480px) {
-    .container_firstmeet {
-        font-size: 22px;
-    }
-    .description {
-        font-size: 18px;
-    }
-    #sticker-container {
-        max-width: 250px;
-        height: 250px;
-    }
-}
