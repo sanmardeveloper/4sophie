@@ -140,3 +140,14 @@ function changeDay(days) {
 
     console.log(selectedDay)
 }
+
+
+/* 
+---TODO LIST---
+    0. Plan all gifts (Can do it anytime when I wanna)
+1. Add storage system
+2. Add gift opens system
+3. Add system of circle-videos
+4. Make animations system (a function for showing animations)
+5. Make better UX
+*/
