@@ -5,12 +5,9 @@ function setCookie(name, value, days = 30) {
 }
 
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-        return decodeURIComponent(parts.pop().split(';').shift());
-    }
-    return undefined;
+    const cookieString = document.cookie.replace(/;\s*/g, '&');
+    const searchParams = new URLSearchParams(cookieString);
+    return searchParams.get(name) || undefined;
 }
 
 
