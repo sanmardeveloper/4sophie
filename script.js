@@ -5,11 +5,11 @@ function setCookie(name, value, days = 30) {
 }
 
 function getCookie(name) {
-    const cookieString = document.cookie.replace(/;\s*/g, '&');
-    const searchParams = new URLSearchParams(cookieString);
-    return searchParams.get(name) || undefined;
+    const matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
-
 
 function deleteCookie(name) {
     setCookie(name, "", -1);
