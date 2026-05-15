@@ -21,46 +21,122 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'sticker.json'
+        path: 'stickers/sticker.json'
     });
 
+
     checkFirstMeet();
+    initializateCalendar();
 });
 
 function continue_gift() {
     const container_firstmeet = document.querySelector(".container_firstmeet");
     const sticker = document.getElementById("sticker-container");
+    const main_container = document.querySelector(".main-container");
 
     if (sticker) {
         sticker.classList.add("move-sticker");
+    }
+
+    if (main_container) {
+        main_container.classList.remove("opacity-zero");
+        main_container.classList.add("move-calendar");
     }
 
     if (container_firstmeet) {
         container_firstmeet.remove();
     }
 
-    setCookie("firstmeet", "true", 365);
+    setCookie("firstmeet", "false", 365);
 }
 
 function checkFirstMeet() {
-    if (getCookie("firstmeet") === "true") {
-        const container_firstmeet = document.querySelector(".container_firstmeet");
-        const sticker = document.getElementById("sticker-container");
+    const container_firstmeet = document.querySelector(".container_firstmeet");
+    const sticker = document.getElementById("sticker-container");
+    const main_container = document.querySelector(".main-container");
 
+    if (getCookie("firstmeet") === "false") {
         if (container_firstmeet) {
             container_firstmeet.remove();
         }
-
         if (sticker) {
             sticker.style.transition = "none";
             sticker.classList.add("move-sticker");
+        }
+        if (main_container) {
+            main_container.style.transition = "none";
+            main_container.classList.add("move-calendar");
+        }
+    } else {
+        if (main_container) {
+            main_container.style.transition = "none";
+            main_container.classList.add("opacity-zero");
+            
+            setTimeout(() => {
+                main_container.style.transition = "";
+            }, 50);
         }
     }
 }
 
 function restartAnimations() {
-    deleteCookie("firstmeet")
-
+    deleteCookie("firstmeet");
     location.reload();
+    deleteCookie("selectedDay")
+}
 
+let nowDay = 0;
+let openedDays = [];
+let avalaibleDays = [];
+let selectedDay = 1;
+
+function initializateCalendar() {
+    const now = new Date();
+    if (now.getMonth == 6) { nowDay = now.getDay - 15 }
+    else if (now.getMonth == 7) { nowDay = now.getDay + 14 }
+
+    /* Already opened days */
+    if (JSON.parse(localStorage.getItem("openedDays")) != null) {
+        openedDays = JSON.parse(localStorage.getItem("openedDays"))
+    } else {
+        localStorage.setItem("openedDays", JSON.stringify([]))
+        openedDays = [];
+    }
+
+    /* Didn't opened yet days */
+    if (JSON.parse(localStorage.getItem("avalaibleDays")) != null) {
+        avalaibleDays = JSON.parse(localStorage.getItem("avalaibleDays"));
+    } else {
+        localStorage.setItem("avalaibleDays", JSON.stringify([]));
+        avalaibleDays = [];
+    }
+    if ( !now.getDay in avalaibleDays) {
+        avalaibleDays.add(now.getDay);
+    }
+
+    if (getCookie("selectedDay") != null) { 
+        /* Getting selectedDay from cookies */
+        selectedDay = Number(getCookie("selectedDay"));
+
+        /* So if selectedDay is more than nowDay we change it to nowDay for better looking */
+        if (selectedDay > nowDay) {
+            selectedDay = nowDay;
+        }
+
+        /* Showing selectedDay in page */
+        const dayNumber = document.getElementById("day");
+        dayNumber.textContent = selectedDay; 
+    }
+}
+
+
+
+function changeDay(days) {
+    const dayNumber = document.getElementById("day");
+
+    if ((selectedDay + days > 0) && (selectedDay + days <= 30)) { selectedDay += days }
+    dayNumber.textContent = selectedDay;
+    setCookie("selectedDay", selectedDay, 45);
+
+    console.log(selectedDay)
 }
