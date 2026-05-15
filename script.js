@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'stickers/sticker.json'
+        path: './stickers/sticker.json'
     });
 
 
