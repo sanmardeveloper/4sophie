@@ -5,11 +5,14 @@ function setCookie(name, value, days = 30) {
 }
 
 function getCookie(name) {
-    const matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+        return decodeURIComponent(parts.pop().split(';').shift());
+    }
+    return undefined;
 }
+
 
 function deleteCookie(name) {
     setCookie(name, "", -1);
