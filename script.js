@@ -1,3 +1,6 @@
+const DBAdress = "https://7462-46-149-76-179.ngrok-free.app/";
+
+
 function setCookie(name, value, days = 30) {
     const seconds = days * 24 * 60 * 60;
     const cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${seconds}; path=/; SameSite=Lax; Secure`;
@@ -140,6 +143,26 @@ function changeDay(days) {
 
     console.log(selectedDay)
 }
+
+function openGift(day) {
+
+    const test_day = 15;
+
+    try {
+        const response = await fetch(DBAdress + `/get_day?day_id=${test_day}`);
+
+        if (response.ok) {
+            const dayData = await response.json();
+            console.log("Данные за день получены:", dayData);
+        } else if (response.status === 404) {
+            console.error("Такого дня нет в базе данных");
+        }
+    } catch (error) {
+        console.error("Ошибка сети:", error);
+    }
+
+}
+
 
 
 /* 
