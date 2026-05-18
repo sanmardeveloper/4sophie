@@ -148,7 +148,12 @@ async function openGift(day) {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://vo9ygnbkbl.eu.loclx.io/get_day?day_id=${day}&lc-options=skip-warning`);
+        const response = await fetch(`https://vo9ygnbkbl.eu.loclx.io/get_day?day_id=${day}`, {
+            method: "GET",
+            headers: {
+                "X-LocalXpose-Skip-Warning": "true"
+            }
+        });
 
         if (response.ok) {
             responseData = await response.json();
