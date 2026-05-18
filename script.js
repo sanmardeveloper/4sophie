@@ -144,16 +144,15 @@ function changeDay(days) {
     console.log(selectedDay)
 }
 
-function openGift(day) {
-
-    const test_day = 15;
+async function openGift(day) {
+    let responseData = null;
 
     try {
-        const response = await fetch(DBAdress + `/get_day?day_id=${test_day}`);
+        const response = await fetch(`https://a8f8-62-84-98-60.ngrok-free.app{day}`);
 
         if (response.ok) {
-            const dayData = await response.json();
-            console.log("Данные за день получены:", dayData);
+            responseData = await response.json();
+            console.log("Данные за день получены:", responseData);
         } else if (response.status === 404) {
             console.error("Такого дня нет в базе данных");
         }
@@ -161,7 +160,33 @@ function openGift(day) {
         console.error("Ошибка сети:", error);
     }
 
+    if (responseData && responseData.available === true) {
+        
+    } else {
+        const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
+        if (giftAnimation) {
+            const sources = giftAnimation.getElementsByTagName('source');
+
+            giftAnimation.loop = false;
+
+            sources[0].src = "./animations/can't open.webm";
+            sources[1].src = "./animations/can't open.mp4";
+
+            giftAnimation.load();
+            giftAnimation.play();
+
+            giftAnimation.addEventListener('ended', function restoreOriginal() {
+                giftAnimation.loop = true;
+                sources[0].src = "./animations/idle.webm";
+                sources[1].src = "./animations/idle.mp4";
+                giftAnimation.load();
+                giftAnimation.play();
+                giftAnimation.removeEventListener('ended', restoreOriginal);
+            });
+        }
+    }
 }
+
 
 
 
