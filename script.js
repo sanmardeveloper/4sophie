@@ -184,7 +184,7 @@ async function openGift(day) {
                 giftAnimation.removeEventListener('ended', restoreOriginal);
             });
         }
-    }
+    } 
 }
 
 
