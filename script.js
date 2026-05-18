@@ -148,7 +148,7 @@ async function openGift(day) {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://a8f8-62-84-98-60.ngrok-free.app/get_day?day_id=${day}&ngrok-skip-browser-warning=true`, {
+        const response = await fetch(`https://35c4-195-2-93-160.ngrok-free.app/get_day?day_id=${day}&ngrok-skip-browser-warning=true`, {
             method: "GET"
         });
 
