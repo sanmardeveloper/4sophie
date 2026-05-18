@@ -148,7 +148,7 @@ async function openGift(day) {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://35c4-195-2-93-160.ngrok-free.app/get_day?day_id=${day}`, {
+        const response = await fetch(`https://3sja43qage.eu.loclx.io /get_day?day_id=${day}`, {
             method: "GET"
         });
 
