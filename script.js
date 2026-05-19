@@ -89,8 +89,7 @@ function restartAnimations() {
 }
 
 let nowDay = 0;
-let openedDays = [];
-let avalaibleDays = [];
+let days = [];
 let selectedDay = 1;
 
 function initializateCalendar() {
@@ -130,6 +129,31 @@ function initializateCalendar() {
         const dayNumber = document.getElementById("day");
         dayNumber.textContent = selectedDay; 
     }
+
+    for (let i = 0; i < 30; i++) {
+        let responseData = null;
+
+        try {
+            const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
+                method: 'GET',
+                headers: {
+                    "bypass-tunnel-reminder" : true
+                }
+            })
+            if (response.ok) {
+                responseData = await response.json();
+                console.log("Данные за день получены:", responseData);
+
+                days.add(response)
+            } else if (response.status === 404) {
+                console.error("Такого дня нет в базе данных");
+            }
+            console.log(days)
+        } catch (error) {
+            console.error("Ошибка сети:", error);
+        }
+        
+    }
 }
 
 
@@ -148,7 +172,7 @@ async function openGift() {
     let responseData = null;
 
     try {
-        const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
+        const response = fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
             method: 'GET',
             headers: {
                 "bypass-tunnel-reminder" : true
@@ -191,6 +215,13 @@ async function openGift() {
     } 
 }
 
+
+/* Right before user leaves */
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') {
+    return
+  }
+});
 
 
 
