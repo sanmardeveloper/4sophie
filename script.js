@@ -134,26 +134,27 @@ function initializateCalendar() {
         let responseData = null;
 
         try {
-            const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
+            const response = fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {//
                 method: 'GET',
                 headers: {
                     "bypass-tunnel-reminder" : true
                 }
             })
             if (response.ok) {
-                responseData = await response.json();
+                responseData = response.json(); //
                 console.log("Данные за день получены:", responseData);
 
-                days.add(response)
+                days.push(responseData)
             } else if (response.status === 404) {
                 console.error("Такого дня нет в базе данных");
             }
-            console.log(days)
+            
         } catch (error) {
             console.error("Ошибка сети:", error);
         }
         
     }
+    console.log(days)
 }
 
 
@@ -172,7 +173,7 @@ async function openGift() {
     let responseData = null;
 
     try {
-        const response = fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
+        const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
             method: 'GET',
             headers: {
                 "bypass-tunnel-reminder" : true
