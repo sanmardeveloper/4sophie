@@ -1,4 +1,4 @@
-const DBAdress = "https://4sophiedbserver.loca.lt/";
+const DBAdress = "https://4sophiedbserver.loca.lt";
 
 
 function setCookie(name, value, days = 30) {
