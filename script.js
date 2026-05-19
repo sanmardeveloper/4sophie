@@ -149,12 +149,7 @@ async function openGift(day) {
 
     try {
         const response = await fetch(`https://you7xx551n.eu.loclx.io/get_day?day_id=${day}`, {
-            method: 'GET',
-            headers: {
-                'ngrok-skip-browser-warning': 'true', 
-                'X-LocalXpose-Skip-Warning': 'true',
-                'Accept': 'application/json'
-            }
+            method: 'GET'
         })
         if (response.ok) {
             responseData = await response.json();
