@@ -149,12 +149,13 @@ async function openGift(day) {
 
     try {
         const response = await fetch(`https://you7xx551n.eu.loclx.io/get_day?day_id=${day}`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "X-LocalXpose-Skip-Warning": "true"
+                'ngrok-skip-browser-warning': 'true', 
+                'X-LocalXpose-Skip-Warning': 'true',
+                'Accept': 'application/json'
             }
-        });
-
+        })
         if (response.ok) {
             responseData = await response.json();
             console.log("Данные за день получены:", responseData);
