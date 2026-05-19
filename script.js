@@ -148,7 +148,7 @@ async function openGift(day) {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://a7c47znkwd.eu.loclx.io/get_day?day_id=${day}`, {
+        const response = await fetch(`https://4sophiedbserver.loca.lt/get_day?day_id=${day}`, {
             method: 'GET'
         })
         if (response.ok) {
