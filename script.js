@@ -1,4 +1,4 @@
-const DBAdress = "https://7462-46-149-76-179.ngrok-free.app/";
+const DBAdress = "https://4sophiedbserver.loca.lt/";
 
 
 function setCookie(name, value, days = 30) {
@@ -148,8 +148,11 @@ async function openGift() {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://4sophiedbserver.loca.lt/get_day?day_id=${selectedDay}`, {
-            method: 'GET'
+        const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
+            method: 'GET',
+            headers: {
+                "bypass-tunnel-reminder" : true
+            }
         })
         if (response.ok) {
             responseData = await response.json();
