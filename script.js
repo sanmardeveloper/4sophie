@@ -144,11 +144,11 @@ function changeDay(days) {
     console.log(selectedDay)
 }
 
-async function openGift(day) {
+async function openGift() {
     let responseData = null;
 
     try {
-        const response = await fetch(`https://4sophiedbserver.loca.lt/get_day?day_id=${day}`, {
+        const response = await fetch(`https://4sophiedbserver.loca.lt/get_day?day_id=${selectedDay}`, {
             method: 'GET'
         })
         if (response.ok) {
