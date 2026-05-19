@@ -130,33 +130,34 @@ function initializateCalendar() {
         dayNumber.textContent = selectedDay; 
     }
 
-    for (let i = 0; i < 30; i++) {
-        let responseData = null;
+    getAllDays()
 
-        try {
-            const response = fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {//
-                method: 'GET',
-                headers: {
-                    "bypass-tunnel-reminder" : true
-                }
-            })
-            if (response.ok) {
-                responseData = response.json(); //
-                console.log("Данные за день получены:", responseData);
+}
 
-                days.push(responseData)
-            } else if (response.status === 404) {
-                console.error("Такого дня нет в базе данных");
+async function getAllDays() {
+    let responseData = null;
+
+    try {
+        const response = await fetch(DBAdress + `/get_all_days`, {
+            method: 'GET',
+            headers: {
+                "bypass-tunnel-reminder" : true
             }
-            
-        } catch (error) {
-            console.error("Ошибка сети:", error);
+        })
+        if (response.ok) {
+            responseData = await response.json();
+            console.log("Данные за день получены:", responseData);
+
+            days = responseData
+        } else if (response.status === 404) {
+            console.error("Такого дня нет в базе данных");
         }
         
+    } catch (error) {
+        console.error("Ошибка сети:", error);
     }
     console.log(days)
 }
-
 
 
 function changeDay(days) {
