@@ -1,5 +1,5 @@
 const DBAdress = "https://4sophiedbserver.loca.lt";
-
+const bypassvalue = "v1";
 
 function setCookie(name, value, days = 30) {
     const seconds = days * 24 * 60 * 60;
@@ -143,7 +143,7 @@ async function getAllDays() {
         const response = await fetch(DBAdress + `/get_all_days`, {
             method: 'GET',
             headers: {
-                "bypass-tunnel-reminder" : "fuckingbypass"
+                "bypass-tunnel-reminder" : bypassvalue
             }
         })
         if (response.ok) {
@@ -197,7 +197,7 @@ async function openGift() {
         const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
             method: 'GET',
             headers: {
-                "bypass-tunnel-reminder" : "fuckingbypass"
+                "bypass-tunnel-reminder" : bypassvalue
             }
         })
         if (response.ok) {
