@@ -162,47 +162,51 @@ async function getAllDays() {
 }
 
 
-function changeDay(days) {
+function changeDay(direction) {
     const dayNumber = document.getElementById("day");
 
-    if ((selectedDay + days > 0) && (selectedDay + days <= 30)) { selectedDay += days }
+    if ((selectedDay + direction > 0) && (selectedDay + direction <= 30)) { 
+        selectedDay += direction; 
+    }
+    
     dayNumber.textContent = selectedDay;
     setCookie("selectedDay", selectedDay, 45);
 
-    console.log(selectedDay)
 
-    function changeGiftAnimation(day) {
-        const giftAnimation = document.getElementsByClassName("giftAnimation")[0];
-        const giftImage = document.getElementsByClassName("giftImage")[0];
 
-        if (!giftAnimation || !giftImage) {
-            console.error("Elements giftAnimation or giftImage weren't found at page!");
-            return;
-        }
+    changeGiftAnimation(selectedDay);
+}
 
-        let dayValue = true;
-        
-        const targetDay = Number(day);
+function changeGiftAnimation(day) {
+    const giftAnimation = document.getElementsByClassName("giftAnimation")[0];
+    const giftImage = document.getElementsByClassName("giftImage")[0];
 
-        for (let i = 0; i < days.length; i++) { 
-            if (Number(days[i].id) === targetDay) { 
-                dayValue = days[i].available; 
-                break;
-            } 
-        }
-
-        if (dayValue === true) {
-            giftAnimation.classList.remove("hidden");
-            giftImage.classList.add("hidden");
-        } else {
-            giftAnimation.classList.add("hidden");
-            giftImage.classList.remove("hidden");
-        }
+    if (!giftAnimation || !giftImage) {
+        return;
     }
 
 
+    if (!days || days.length === 0) {
+        return;
+    }
 
-    changeGiftAnimation(days)
+    let dayValue = true;
+    const targetDay = Number(day);
+
+    for (let i = 0; i < days.length; i++) { 
+        if (Number(days[i].id) === targetDay) { 
+            dayValue = days[i].available; 
+            break;
+        } 
+    }
+
+    if (dayValue === true) {
+        giftAnimation.classList.remove("hidden");
+        giftImage.classList.add("hidden");
+    } else {
+        giftAnimation.classList.add("hidden");
+        giftImage.classList.remove("hidden");
+    }
 }
 
 async function openGift() {
