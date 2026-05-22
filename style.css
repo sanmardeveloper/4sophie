@@ -11,6 +11,26 @@ body {
     color: #7a7a7a;
 }
 
+.hover {
+    position: fixed;
+    width: 1000000px;
+    height: 10000000px;
+    z-index: 10000000;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+    #title {
+        margin-top: 50%;
+        position: fixed;
+        z-index: 10000001;
+        font-size: 40px;
+    }
+}
+
 .hidden {
     display: none !important;
 }

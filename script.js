@@ -1,6 +1,8 @@
 const DBAdress = "https://4sophiedbserver.loca.lt";
 const bypassvalue = "v1";
 
+
+
 function setCookie(name, value, days = 30) {
     const seconds = days * 24 * 60 * 60;
     const cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${seconds}; path=/; SameSite=Lax; Secure`;
@@ -148,9 +150,11 @@ async function getAllDays() {
         })
         if (response.ok) {
             responseData = await response.json();
-            console.log("Данные за день получены:", responseData);
 
             days = responseData
+
+            const loadingScreen = document.getElementsByClassName('hover')[0]
+            loadingScreen.remove()
         } else if (response.status === 404) {
             console.error("Такого дня нет в базе данных");
         }
@@ -271,9 +275,9 @@ document.addEventListener('visibilitychange', function() {
 /* 
 ---TODO LIST---
     0. Plan all gifts (Can do it anytime when I wanna)
-1. Add storage system
+1. Add storage system (already 50/50)
 2. Add gift opens system
 3. Add system of circle-videos
-4. Make animations system (a function for showing animations)
+4. Make animations system (a function for showing animations) (already 50/50)
 5. Make better UX
 */
