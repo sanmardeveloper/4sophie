@@ -204,12 +204,13 @@ function changeGiftAnimation(day) {
         } 
     }
 
+    const sources = giftAnimation.getElementsByTagName('source');
     if (dayValue === true) {
-        giftAnimation.classList.remove("hidden");
-        giftImage.classList.add("hidden");
+        sources[0].src = "./animations/idle.webm";
+        sources[1].src = "./animations/idle.mp4";
     } else {
-        giftAnimation.classList.add("hidden");
-        giftImage.classList.remove("hidden");
+        sources[0].src = "./animations/opened idle.webm";
+        sources[1].src = "./animations/opened idle.mp4";
     }
 }
 
@@ -241,13 +242,10 @@ async function openGift() {
 
                 giftAnimation.addEventListener('ended', function restoreOriginal() {
                     giftAnimation.loop = true;
-                    sources[0].src = "./animations/idle.webm";
-                    sources[1].src = "./animations/idle.mp4";
+                    sources[0].src = "./animations/opened idle.webm";
+                    sources[1].src = "./animations/opened idle.mp4";
                     giftAnimation.load();
                     giftAnimation.play();
-                    
-                    giftAnimation.classList.add("hidden");
-                    giftImage.classList.remove("hidden");
                     
                     giftAnimation.removeEventListener('ended', restoreOriginal);  
                 });
