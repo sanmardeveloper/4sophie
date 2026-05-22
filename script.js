@@ -223,8 +223,10 @@ async function openGift() {
         } else if (!responseData.available) {
             const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
             const giftImage = document.getElementsByClassName("giftImage")[0];
-            if (giftAnimation) {
+            
+            if (giftAnimation && giftImage) {
                 const sources = giftAnimation.getElementsByTagName('source');
+                
                 giftAnimation.classList.remove("hidden")
                 giftImage.classList.add("hidden")
 
@@ -243,10 +245,11 @@ async function openGift() {
                     sources[1].src = "./animations/idle.mp4";
                     giftAnimation.load();
                     giftAnimation.play();
-                    giftAnimation.removeEventListener('ended', restoreOriginal);
                     
                     giftAnimation.classList.add("hidden");
                     giftImage.classList.remove("hidden");
+                    
+                    giftAnimation.removeEventListener('ended', restoreOriginal);  
                 });
             }
         }
