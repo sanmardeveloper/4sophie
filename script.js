@@ -194,15 +194,7 @@ function changeGiftAnimation(day) {
         return;
     }
 
-    let dayValue = true;
-    const targetDay = Number(day);
-
-    for (let i = 0; i < days.length; i++) { 
-        if (Number(days[i].id) === targetDay) { 
-            dayValue = days[i].available; 
-            break;
-        } 
-    }
+    let dayValue = days[selectedDay - 1].available; 
 
     const sources = giftAnimation.getElementsByTagName('source');
     if (dayValue === true) {
@@ -215,13 +207,13 @@ function changeGiftAnimation(day) {
 }
 
 async function openGift() {
-    let responseData = days[selectedDay + 1];
+    let responseData = days[selectedDay - 1];
 
     /* Animations */
     if (responseData) {
-        if (responseData.available) {
+        if (responseData.available == true) {
             return;
-        } else if (!responseData.available) {
+        } else if (responseData.available == false) {
             const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
             const giftImage = document.getElementsByClassName("giftImage")[0];
             
