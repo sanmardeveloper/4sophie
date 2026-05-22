@@ -214,49 +214,38 @@ function changeGiftAnimation(day) {
 }
 
 async function openGift() {
-    let responseData = null;
+    let responseData = days[selectedDay];
 
-    try {
-        const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
-            method: 'GET',
-            headers: {
-                "bypass-tunnel-reminder" : bypassvalue
-            }
-        })
-        if (response.ok) {
-            responseData = await response.json();
-            console.log("Данные за день получены:", responseData);
-        } else if (response.status === 404) {
-            console.error("Такого дня нет в базе данных");
-        }
-    } catch (error) {
-        console.error("Ошибка сети:", error);
-    }
+    /* Animations */
+    if (responseData) {
+        if (responseData.available) {
 
-    if (responseData && responseData.available === true) {
-        
-    } else {
-        const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
-        if (giftAnimation) {
-            const sources = giftAnimation.getElementsByTagName('source');
+        } else if (!responseData.available) {
+            const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
+            const giftImage = document.getElementsByClassName("giftImage")[0];
+            if (giftAnimation) {
+                const sources = giftAnimation.getElementsByTagName('source');
+                giftAnimation.classList.remove("hidden")
+                giftImage.classList.add("hidden")
+                
+                giftAnimation.loop = false;
 
-            giftAnimation.loop = false;
+                
+                sources[0].src = "./animations/can't open.webm";
+                sources[1].src = "./animations/can't open.mp4";
 
-            sources[0].src = "./animations/can't open.webm";
-            sources[1].src = "./animations/can't open.mp4";
-
-            giftAnimation.load();
-            giftAnimation.play();
-
-            giftAnimation.addEventListener('ended', function restoreOriginal() {
-                giftAnimation.loop = true;
-                sources[0].src = "./animations/idle.webm";
-                sources[1].src = "./animations/idle.mp4";
                 giftAnimation.load();
                 giftAnimation.play();
-                giftAnimation.removeEventListener('ended', restoreOriginal);
-            });
+
+                giftAnimation.addEventListener('ended', function restoreOriginal() {
+                    changeGiftAnimation(selectedDay);
+                    giftImage.classList.remove("hidden")
+                    giftAnimation.classList.add("hidden")
+                });
+            }
         }
+    } else {
+        return;
     } 
 }
 
