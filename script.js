@@ -227,7 +227,7 @@ async function openGift() {
                 const sources = giftAnimation.getElementsByTagName('source');
                 giftAnimation.classList.remove("hidden")
                 giftImage.classList.add("hidden")
-                
+
                 giftAnimation.loop = false;
 
                 
@@ -238,14 +238,42 @@ async function openGift() {
                 giftAnimation.play();
 
                 giftAnimation.addEventListener('ended', function restoreOriginal() {
-                    changeGiftAnimation(selectedDay);
-                    giftImage.classList.remove("hidden")
-                    giftAnimation.classList.add("hidden")
+                    giftAnimation.loop = true;
+                    sources[0].src = "./animations/idle.webm";
+                    sources[1].src = "./animations/idle.mp4";
+                    giftAnimation.load();
+                    giftAnimation.play();
+                    giftAnimation.removeEventListener('ended', restoreOriginal);
+                    
+                    giftAnimation.classList.add("hidden");
+                    giftImage.classList.remove("hidden");
                 });
             }
         }
     } else {
-        return;
+        if (responseData.available == true) {
+            const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
+            if (giftAnimation) {
+                const sources = giftAnimation.getElementsByTagName('source');
+
+                giftAnimation.loop = false;
+
+                sources[0].src = "./animations/can't open.webm";
+                sources[1].src = "./animations/can't open.mp4";
+
+                giftAnimation.load();
+                giftAnimation.play();
+
+                giftAnimation.addEventListener('ended', function restoreOriginal() {
+                    giftAnimation.loop = true;
+                    sources[0].src = "./animations/idle.webm";
+                    sources[1].src = "./animations/idle.mp4";
+                    giftAnimation.load();
+                    giftAnimation.play();
+                    giftAnimation.removeEventListener('ended', restoreOriginal);
+                });
+            }
+        }
     } 
 }
 
