@@ -176,7 +176,7 @@ function changeDay(days) {
         const giftImage = document.getElementsByClassName("giftImage")[0]
 
         let dayValue = true;
-        for (let i = 0; i < days; i++) { if (days[i][id] == day) { dayValue = days[i][available]; } }
+        for (let i = 0; i < days; i++) { if (days[i]['id'] == day) { dayValue = days[i]['available']; } }
 
         if (dayValue == true) {
             giftAnimation.classList.remove("hidden")
