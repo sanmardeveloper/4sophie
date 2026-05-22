@@ -172,25 +172,34 @@ function changeDay(days) {
     console.log(selectedDay)
 
     function changeGiftAnimation(day) {
-        const giftAnimation = document.getElementsByClassName("giftAnimation")[0]
-        const giftImage = document.getElementsByClassName("giftImage")[0]
+        const giftAnimation = document.getElementsByClassName("giftAnimation")[0];
+        const giftImage = document.getElementsByClassName("giftImage")[0];
+
+        if (!giftAnimation || !giftImage) {
+            console.error("Elements giftAnimation or giftImage weren't found at page!");
+            return;
+        }
 
         let dayValue = true;
-        // FIXED: Changed [id] to .id and [available] to .available
+        
+        const targetDay = Number(day);
+
         for (let i = 0; i < days.length; i++) { 
-            if (days[i].id == day) { 
+            if (Number(days[i].id) === targetDay) { 
                 dayValue = days[i].available; 
+                break;
             } 
         }
 
-        if (dayValue == true) {
-            giftAnimation.classList.remove("hidden")
-            giftImage.classList.add("hidden")
+        if (dayValue === true) {
+            giftAnimation.classList.remove("hidden");
+            giftImage.classList.add("hidden");
         } else {
-            giftAnimation.classList.add("hidden")
-            giftImage.classList.remove("hidden")
+            giftAnimation.classList.add("hidden");
+            giftImage.classList.remove("hidden");
         }
     }
+
 
 
     changeGiftAnimation(days)
