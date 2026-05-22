@@ -1,4 +1,4 @@
-const DBAdress = "https://4sophiedbserver.loca.lt";
+const DBAdress = "https://aiwudhaiwufdja.loca.lt";
 const bypassvalue = "v1";
 
 
