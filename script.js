@@ -214,12 +214,12 @@ function changeGiftAnimation(day) {
 }
 
 async function openGift() {
-    let responseData = days[selectedDay];
+    let responseData = days[selectedDay + 1];
 
     /* Animations */
     if (responseData) {
         if (responseData.available) {
-
+            return;
         } else if (!responseData.available) {
             const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
             const giftImage = document.getElementsByClassName("giftImage")[0];
@@ -251,29 +251,7 @@ async function openGift() {
             }
         }
     } else {
-        if (responseData.available == true) {
-            const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
-            if (giftAnimation) {
-                const sources = giftAnimation.getElementsByTagName('source');
-
-                giftAnimation.loop = false;
-
-                sources[0].src = "./animations/can't open.webm";
-                sources[1].src = "./animations/can't open.mp4";
-
-                giftAnimation.load();
-                giftAnimation.play();
-
-                giftAnimation.addEventListener('ended', function restoreOriginal() {
-                    giftAnimation.loop = true;
-                    sources[0].src = "./animations/idle.webm";
-                    sources[1].src = "./animations/idle.mp4";
-                    giftAnimation.load();
-                    giftAnimation.play();
-                    giftAnimation.removeEventListener('ended', restoreOriginal);
-                });
-            }
-        }
+        return;
     } 
 }
 
