@@ -141,7 +141,7 @@ async function getAllDays() {
         const response = await fetch(DBAdress + `/get_all_days`, {
             method: 'GET',
             headers: {
-                "bypass-tunnel-reminder" : true
+                "bypass-tunnel-reminder" : "fuckingbypass"
             }
         })
         if (response.ok) {
@@ -177,7 +177,7 @@ async function openGift() {
         const response = await fetch(DBAdress + `/get_day?day_id=${selectedDay}`, {
             method: 'GET',
             headers: {
-                "bypass-tunnel-reminder" : true
+                "bypass-tunnel-reminder" : "fuckingbypass"
             }
         })
         if (response.ok) {
