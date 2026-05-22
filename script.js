@@ -18,6 +18,8 @@ function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 document.addEventListener('DOMContentLoaded', () => {
     lottie.loadAnimation({
         container: document.getElementById('sticker-container'),
@@ -168,6 +170,24 @@ function changeDay(days) {
     setCookie("selectedDay", selectedDay, 45);
 
     console.log(selectedDay)
+
+    function changeGiftAnimation(day) {
+        const giftAnimation = document.getElementsByClassName("giftAnimation")[0]
+        const giftImage = document.getElementsByClassName("giftImage")[0]
+
+        let dayValue = true;
+        for (let i = 0; i < days; i++) { if (days.i == day) { dayValue = days.i.available; } }
+
+        if (dayValue == true) {
+            giftAnimation.classList.remove("hidden")
+            giftImage.classList.add("hidden")
+        } else {
+            giftAnimation.classList.add("hidden")
+            giftImage.classList.remove("hidden")
+        }
+    }
+
+    changeGiftAnimation(days)
 }
 
 async function openGift() {
@@ -218,12 +238,14 @@ async function openGift() {
 }
 
 
+
 /* Right before user leaves */
 document.addEventListener('visibilitychange', function() {
   if (document.visibilityState === 'hidden') {
     return
   }
 });
+
 
 
 
