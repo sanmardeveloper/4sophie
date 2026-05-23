@@ -24,7 +24,7 @@ body {
     
 
     #title {
-        margin-top: 50%;
+        margin-top: 50vh;
         position: fixed;
         z-index: 10000001;
         font-size: 40px;

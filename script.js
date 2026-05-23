@@ -2,7 +2,7 @@ const DBAdress = "https://aiwudhaiwufdja.loca.lt";
 const bypassvalue = "v1";
 
 
-
+/* Funtions for cookies */
 function setCookie(name, value, days = 30) {
     const seconds = days * 24 * 60 * 60;
     const cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${seconds}; path=/; SameSite=Lax; Secure`;
@@ -20,8 +20,10 @@ function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
+/* Constant for sleep function */
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+/* Starting function */
 document.addEventListener('DOMContentLoaded', () => {
     lottie.loadAnimation({
         container: document.getElementById('sticker-container'),
@@ -33,9 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     checkFirstMeet();
-    initializateCalendar();
+    initializate();
 });
 
+/* Then users tapping continue on title screen (first time screen) */
 function continue_gift() {
     const container_firstmeet = document.querySelector(".container_firstmeet");
     const sticker = document.getElementById("sticker-container");
@@ -57,6 +60,7 @@ function continue_gift() {
     setCookie("firstmeet", "false", 365);
 }
 
+/* Check for user's first time */
 function checkFirstMeet() {
     const container_firstmeet = document.querySelector(".container_firstmeet");
     const sticker = document.getElementById("sticker-container");
@@ -96,7 +100,7 @@ let nowDay = 0;
 let days = [];
 let selectedDay = 1;
 
-function initializateCalendar() {
+function initializate() {
     const now = new Date();
     if (now.getMonth == 6) { nowDay = now.getDay - 15 }
     else if (now.getMonth == 7) { nowDay = now.getDay + 14 }
@@ -134,14 +138,20 @@ function initializateCalendar() {
         dayNumber.textContent = selectedDay; 
     }
 
-    const animationFiles = ['can open.mp4', "can't open.mp4", 'idle.mp4', 'opened idle.mp4', 
-        'can open.webm', "can't open.webm", 'idle.webm', 'opened idle.webm'];
-    const folderPath = './animations';
+    /* Preloading animations */
+    const animationFiles = [
+        'can open.mp4', "can't open.mp4", 'idle.mp4', 'opened idle.mp4', 
+        'can open.webm', "can't open.webm", 'idle.webm', 'opened idle.webm'
+    ];
+    const folderPath = './animations/';
 
-    Promise.all(animationFiles.map(file => fetch(folderPath + file).then(res => res.json())))
-        .then(loadedAnimations => {
-            return;
-        });
+    Promise.all(animationFiles.map(file => fetch(folderPath + file).then(res => res.blob())))
+        .then(blobs => {
+
+            console.log('All animations got cached', blobs);
+        })
+        .catch(err => console.error('Preloading error:', err));
+
     getAllDays()
 
 }
