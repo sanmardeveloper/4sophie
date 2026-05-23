@@ -210,20 +210,16 @@ async function openGift() {
     let responseData = days[selectedDay - 1];
 
     console.log(responseData)
+    console.log(days[selectedDay - 1])
 
     /* Animations */
     if (responseData.available == true) {
         return;
     } else {
         const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
-        const giftImage = document.getElementsByClassName("giftImage")[0];
         
-        if (giftAnimation && giftImage) {
+        if (giftAnimation) {
             const sources = giftAnimation.getElementsByTagName('source');
-            
-            giftAnimation.classList.remove("hidden")
-            giftImage.classList.add("hidden")
-
             giftAnimation.loop = false;
 
             
