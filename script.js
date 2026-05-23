@@ -209,43 +209,41 @@ function changeGiftAnimation(day) {
 async function openGift() {
     let responseData = days[selectedDay - 1];
 
+    console.log(responseData)
+
     /* Animations */
-    if (responseData) {
-        if (responseData.available == true) {
-            return;
-        } else if (responseData.available == false) {
-            const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
-            const giftImage = document.getElementsByClassName("giftImage")[0];
+    if (responseData.available == true) {
+        return;
+    } else {
+        const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
+        const giftImage = document.getElementsByClassName("giftImage")[0];
+        
+        if (giftAnimation && giftImage) {
+            const sources = giftAnimation.getElementsByTagName('source');
             
-            if (giftAnimation && giftImage) {
-                const sources = giftAnimation.getElementsByTagName('source');
-                
-                giftAnimation.classList.remove("hidden")
-                giftImage.classList.add("hidden")
+            giftAnimation.classList.remove("hidden")
+            giftImage.classList.add("hidden")
 
-                giftAnimation.loop = false;
+            giftAnimation.loop = false;
 
-                
-                sources[0].src = "./animations/can't open.webm";
-                sources[1].src = "./animations/can't open.mp4";
+            
+            sources[0].src = "./animations/can't open.webm";
+            sources[1].src = "./animations/can't open.mp4";
 
+            giftAnimation.load();
+            giftAnimation.play();
+
+            giftAnimation.addEventListener('ended', function restoreOriginal() {
+                giftAnimation.loop = true;
+                sources[0].src = "./animations/opened idle.webm";
+                sources[1].src = "./animations/opened idle.mp4";
                 giftAnimation.load();
                 giftAnimation.play();
-
-                giftAnimation.addEventListener('ended', function restoreOriginal() {
-                    giftAnimation.loop = true;
-                    sources[0].src = "./animations/opened idle.webm";
-                    sources[1].src = "./animations/opened idle.mp4";
-                    giftAnimation.load();
-                    giftAnimation.play();
-                    
-                    giftAnimation.removeEventListener('ended', restoreOriginal);  
-                });
-            }
+                
+                giftAnimation.removeEventListener('ended', restoreOriginal);  
+            });
         }
-    } else {
-        return;
-    } 
+    }
 }
 
 
