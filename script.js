@@ -183,9 +183,8 @@ function changeDay(direction) {
 
 function changeGiftAnimation(day) {
     const giftAnimation = document.getElementsByClassName("giftAnimation")[0];
-    const giftImage = document.getElementsByClassName("giftImage")[0];
 
-    if (!giftAnimation || !giftImage) {
+    if (!giftAnimation) {
         return;
     }
 
