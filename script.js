@@ -134,6 +134,14 @@ function initializateCalendar() {
         dayNumber.textContent = selectedDay; 
     }
 
+    const animationFiles = ['can open.mp4', "can't open.mp4", 'idle.mp4', 'opened idle.mp4', 
+        'can open.webm', "can't open.webm", 'idle.webm', 'opened idle.webm'];
+    const folderPath = './animations';
+
+    Promise.all(animationFiles.map(file => fetch(folderPath + file).then(res => res.json())))
+        .then(loadedAnimations => {
+            return;
+        });
     getAllDays()
 
 }
@@ -212,9 +220,6 @@ function changeGiftAnimation(day) {
 
 async function openGift() {
     let responseData = days[selectedDay - 1];
-
-    console.log(responseData)
-    console.log(selectedDay - 1)
 
     /* Animations */
     if (responseData.available == true) {
