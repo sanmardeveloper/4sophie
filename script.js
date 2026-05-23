@@ -188,7 +188,6 @@ function changeGiftAnimation(day) {
         return;
     }
 
-
     if (!days || days.length === 0) {
         return;
     }
@@ -199,9 +198,15 @@ function changeGiftAnimation(day) {
     if (dayValue === true) {
         sources[0].src = "./animations/idle.webm";
         sources[1].src = "./animations/idle.mp4";
+
+        giftAnimation.load();
+        giftAnimation.play();
     } else {
         sources[0].src = "./animations/opened idle.webm";
         sources[1].src = "./animations/opened idle.mp4";
+
+        giftAnimation.load();
+        giftAnimation.play();
     }
 }
 
@@ -209,7 +214,7 @@ async function openGift() {
     let responseData = days[selectedDay - 1];
 
     console.log(responseData)
-    console.log(days[selectedDay - 1])
+    console.log(selectedDay - 1)
 
     /* Animations */
     if (responseData.available == true) {
