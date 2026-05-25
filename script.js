@@ -251,29 +251,28 @@ async function openGift() {
             const sources = giftAnimation.getElementsByTagName('source');
             giftAnimation.loop = false;
 
-            
             sources[0].src = "./animations/can open.webm";
             sources[1].src = "./animations/can open.mp4";
 
             giftAnimation.load();
             giftAnimation.play();
 
-            giftAnimation.addEventListener('timeupdate', function timeUpdate() {
+            function timeUpdate() {
                 if (getCurrentFrame(giftAnimation) == 6) {
                     const type = days[selectedDay - 1].content.match(/awdawd=(.*?)\/\//);
                     const image = days[selectedDay - 1].content.match(/png=(.*?),/);
                     const circle_video = days[selectedDay - 1].content.match(/circle_video=(.*?),/);
                     const compliment = days[selectedDay - 1].content.match(/compliment=(.*?),/);
                     const giftcard = days[selectedDay - 1].content.match(/giftcard=(.*?),/);
-                    const special_data = days[selectedDay - 1].special_data
+                    const special_data = days[selectedDay - 1].special_data;
 
-                    openGiftMenu(type, image, circle_video, compliment, giftcard, special_data)
+                    openGiftMenu(type, image, circle_video, compliment, giftcard, special_data);
+                    
+                    giftAnimation.removeEventListener('timeupdate', timeUpdate);  
                 }
-                
-                giftAnimation.removeEventListener('timeupdate', restoreOriginal);  
-            });
+            }
 
-            giftAnimation.addEventListener('ended', function restoreOriginal() {
+            function restoreOriginal() {
                 giftAnimation.loop = true;
                 sources[0].src = "./animations/idle.webm";
                 sources[1].src = "./animations/idle.mp4";
@@ -281,8 +280,12 @@ async function openGift() {
                 giftAnimation.play();
                 
                 giftAnimation.removeEventListener('ended', restoreOriginal);  
-            });
+            }
+
+            giftAnimation.addEventListener('timeupdate', timeUpdate);
+            giftAnimation.addEventListener('ended', restoreOriginal);
         }
+
     } else {
         const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
         
