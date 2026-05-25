@@ -33,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
         path: './stickers/sticker.json'
     });
 
+    lottie.loadAnimation({
+        container: document.getElementById("gift-sticker-container"),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: './stickers/gift_sticker.json'
+    });
+
 
     checkFirstMeet();
     initializate();
@@ -228,12 +236,53 @@ function changeGiftAnimation(day) {
     }
 }
 
+function getCurrentFrame(videoElement, fps = 30) {
+    return Math.floor(videoElement.currentTime * fps);
+}
+
 async function openGift() {
     let responseData = days[selectedDay - 1];
 
     /* Animations */
     if (responseData.available == true) {
-        return;
+        const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
+        
+        if (giftAnimation) {
+            const sources = giftAnimation.getElementsByTagName('source');
+            giftAnimation.loop = false;
+
+            
+            sources[0].src = "./animations/open.webm";
+            sources[1].src = "./animations/open.mp4";
+
+            giftAnimation.load();
+            giftAnimation.play();
+
+            giftAnimation.addEventListener('timeupdate', function timeUpdate() {
+                if (getCurrentFrame(giftAnimation) == 6) {
+                    const type = days[selectedDay - 1].content.match(/awdawd=(.*?)\/\//);
+                    const image = days[selectedDay - 1].content.match(/png=(.*?),/);
+                    const circle_video = days[selectedDay - 1].content.match(/circle_video=(.*?),/);
+                    const compliment = days[selectedDay - 1].content.match(/compliment=(.*?),/);
+                    const giftcard = days[selectedDay - 1].content.match(/giftcard=(.*?),/);
+                    const special_data = days[selectedDay - 1].special_data
+
+                    openGiftMenu(type, image, circle_video, compliment, giftcard, special_data)
+                }
+                
+                giftAnimation.removeEventListener('timeupdate', restoreOriginal);  
+            });
+
+            giftAnimation.addEventListener('ended', function restoreOriginal() {
+                giftAnimation.loop = true;
+                sources[0].src = "./animations/idle.webm";
+                sources[1].src = "./animations/idle.mp4";
+                giftAnimation.load();
+                giftAnimation.play();
+                
+                giftAnimation.removeEventListener('ended', restoreOriginal);  
+            });
+        }
     } else {
         const giftAnimation = document.getElementsByClassName('giftAnimation')[0];
         
@@ -261,7 +310,99 @@ async function openGift() {
     }
 }
 
+function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = Number, GiftCard = Number, SpecialData = String) {
+    console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData)
+}
 
+/* Circle Video js */
+let isCircleVideoPlaying = false;
+let circleVideo;
+let timeDisplay;
+
+function formatTime(seconds) {
+    if (isNaN(seconds) || seconds === Infinity) return '00:00';
+    const totalSeconds = Math.floor(seconds);
+    const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+    const secs = (totalSeconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+}
+
+function updateTimeTextDirectly() {
+    if (circleVideo && timeDisplay) {
+        const current = formatTime(circleVideo.currentTime);
+        const duration = formatTime(circleVideo.duration);
+        timeDisplay.textContent = `${current} / ${duration}`;
+    }
+}
+
+function circleVideoEveryFrame() {
+    if (circleVideo && !circleVideo.paused && !circleVideo.ended) {
+        updateTimeTextDirectly();
+        requestAnimationFrame(circleVideoEveryFrame);
+    }
+}
+
+function playCircleVideo() {
+    if (!circleVideo) return;
+    if (!isCircleVideoPlaying) {
+        circleVideo.play();
+    } else {
+        circleVideo.pause();
+    }
+    isCircleVideoPlaying = !isCircleVideoPlaying;
+}
+
+function cv_toTheStart() {
+    if (!circleVideo) return;
+    circleVideo.currentTime = 0;
+    circleVideo.play();
+    isCircleVideoPlaying = true;
+}
+
+function cv_back() {
+    if (!circleVideo) return;
+    circleVideo.currentTime -= 1;
+    updateTimeTextDirectly();
+}
+
+function cv_next() {
+    if (!circleVideo) return;
+    circleVideo.currentTime += 1;
+    updateTimeTextDirectly();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    circleVideo = document.getElementById('circle-video');
+    timeDisplay = document.getElementsByClassName('circle-video-time')[0];
+
+    if (circleVideo) {
+        circleVideo.addEventListener('loadedmetadata', updateTimeTextDirectly);
+        
+        circleVideo.addEventListener('emptied', () => {
+            isCircleVideoPlaying = false;
+            updateTimeTextDirectly();
+        });
+
+        circleVideo.addEventListener('play', () => {
+            isCircleVideoPlaying = true;
+            circleVideoEveryFrame(); 
+        });
+
+        circleVideo.addEventListener('pause', () => {
+            isCircleVideoPlaying = false;
+        });
+    }
+});
+
+function openCompliment() {
+    const hoverElement = document.getElementById('hover');
+    hoverElement.classList.add('opened');
+}
+
+function openGiftCard() {
+    const hoverGiftCardElement = document.getElementById('hoverGiftCard');
+    hoverGiftCardElement.classList.add('opened');
+}
 
 /* Right before user leaves */
 document.addEventListener('visibilitychange', function() {

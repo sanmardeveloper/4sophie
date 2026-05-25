@@ -15,9 +15,61 @@
 
     </head>
     <body>
-        <div class="hover">
+        <div class="hover hidden">
             <div id="title">
                 Loading...
+            </div>
+        </div>
+
+        <div class="gift-open-menu hidden">
+            <div id="header">
+                <div id="gift-sticker-container"></div>
+            </div>
+            <div id="main" class="ubuntu-regular">
+                <div class="circle-video ">
+                    <video id="circle-video" src="./videos/test_video_1.mp4" playsinline style="height: 200px; border-radius: 100px;" onclick="playCircleVideo()"></video>
+                    <div class="circle-video-time">
+                        01/07
+                    </div>
+                    <div id="video-control">
+                        <div id="buttonToTheStart" onclick="cv_toTheStart()">⏮</div>
+                        <div id="buttonToTheStart" onclick="cv_back()">◀</div>
+                        <div id="buttonToTheStart" onclick="cv_next()">▶</div>
+                    </div>
+                    </div>
+
+                <div class="compliment">
+                    <div class="ubuntu-regular" id="pre-text">
+                        Тут комплимент для тебя!
+                    </div>
+                    <div class="secret-container">
+                        <div class="ubuntu-bold" id="text">
+                            Ты у меня самая лучшая!
+                        </div>
+                        <div id="hover" onclick="openCompliment()">
+                            Нажми, чтобы открыть 🎁
+                        </div>
+                    </div>
+                </div>
+                <div class="giftCard">
+                    <div class="ubuntu-regular" id="pre-text">
+                        И открыточка!
+                    </div>
+                    <div class="secret-container">
+                        <div id="giftCard">
+                            <img id="giftCardImg" src="./pngs/giftCards/1.jpg" height="240px">
+                        </div>
+                        <div id="hoverGiftCard" onclick="openGiftCard()">
+                            Нажми, чтобы открыть 🎁
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                
+            </div>
+            <div id="footer">
+                С Днём Рождения! 🎉
             </div>
         </div>
 
