@@ -252,8 +252,8 @@ async function openGift() {
             giftAnimation.loop = false;
 
             
-            sources[0].src = "./animations/open.webm";
-            sources[1].src = "./animations/open.mp4";
+            sources[0].src = "./animations/can open.webm";
+            sources[1].src = "./animations/can open.mp4";
 
             giftAnimation.load();
             giftAnimation.play();
