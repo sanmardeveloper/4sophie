@@ -402,13 +402,15 @@ function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compl
     }
 
     undercover.classList.add("openedGM")
+    undercover.classList.remove("hidden")
     gift_open_menu.classList.add("openedGM")
+    gift_open_menu.classList.remove("hidden")
 }
 
 function gm_exitMenu() {
     undercover.classList.add("hidden")
     undercover.classList.remove("openedGM")
-    
+
     gift_open_menu.classList.add("hidden")
     gift_open_menu.classList.remove("openedGM")
 }
