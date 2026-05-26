@@ -108,61 +108,7 @@ let nowDay = 0;
 let days = [];
 let selectedDay = 1;
 
-function initializate() {
-    const now = new Date();
-    if (now.getMonth == 6) { nowDay = now.getDay - 15 }
-    else if (now.getMonth == 7) { nowDay = now.getDay + 14 }
 
-    /* Already opened days */
-    if (JSON.parse(localStorage.getItem("openedDays")) != null) {
-        openedDays = JSON.parse(localStorage.getItem("openedDays"))
-    } else {
-        localStorage.setItem("openedDays", JSON.stringify([]))
-        openedDays = [];
-    }
-
-    /* Didn't opened yet days */
-    if (JSON.parse(localStorage.getItem("avalaibleDays")) != null) {
-        avalaibleDays = JSON.parse(localStorage.getItem("avalaibleDays"));
-    } else {
-        localStorage.setItem("avalaibleDays", JSON.stringify([]));
-        avalaibleDays = [];
-    }
-    if ( !now.getDay in avalaibleDays) {
-        avalaibleDays.add(now.getDay);
-    }
-
-    if (getCookie("selectedDay") != null) { 
-        /* Getting selectedDay from cookies */
-        selectedDay = Number(getCookie("selectedDay"));
-
-        /* So if selectedDay is more than nowDay we change it to nowDay for better looking */
-        if (selectedDay > nowDay) {
-            selectedDay = nowDay;
-        }
-
-        /* Showing selectedDay in page */
-        const dayNumber = document.getElementById("day");
-        dayNumber.textContent = selectedDay; 
-    }
-
-    /* Preloading animations */
-    const animationFiles = [
-        'can open.mp4', "can't open.mp4", 'idle.mp4', 'opened idle.mp4', 
-        'can open.webm', "can't open.webm", 'idle.webm', 'opened idle.webm'
-    ];
-    const folderPath = './animations/';
-
-    Promise.all(animationFiles.map(file => fetch(folderPath + file).then(res => res.blob())))
-        .then(blobs => {
-
-            console.log('All animations got cached', blobs);
-        })
-        .catch(err => console.error('Preloading error:', err));
-
-    getAllDays()
-
-}
 
 async function getAllDays() {
     let responseData = null;
@@ -350,13 +296,7 @@ function drawGMPage(){
 
 }
 
-function gm_exitMenu() {
-    const gift_open_menu = document.getElementsByClassName('gift-open-menu')[0]
-    const undercover = document.getElementsByClassName('undercover')[0]
 
-    gift_open_menu.classList.add("hidden")
-    undercover.classList.add("hidden")
-}
 
 /* Circle Video js */
 let isCircleVideoPlaying = false;
@@ -395,6 +335,8 @@ function playCircleVideo() {
     }
     isCircleVideoPlaying = !isCircleVideoPlaying;
 }
+
+
 
 function cv_toTheStart() {
     if (!circleVideo) return;
@@ -438,6 +380,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+const undercover = document.getElementsByClassName('undercover')[0]
+const gift_open_menu = document.getElementsByClassName('gift-open-menu')[0];
+
 function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = String, GiftCard = Number, SpecialData = String) {
     console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData)
 
@@ -456,6 +401,16 @@ function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compl
         window.location.href = "/" + SpecialData + ".html";
     }
 
+    undercover.classList.add("openedGM")
+    gift_open_menu.classList.add("openedGM")
+}
+
+function gm_exitMenu() {
+    undercover.classList.add("hidden")
+    undercover.classList.remove("openedGM")
+    
+    gift_open_menu.classList.add("hidden")
+    gift_open_menu.classList.remove("openedGM")
 }
 
 function openCompliment() {
@@ -475,7 +430,61 @@ document.addEventListener('visibilitychange', function() {
   }
 });
 
+function initializate() {
+    const now = new Date();
+    if (now.getMonth == 6) { nowDay = now.getDay - 15 }
+    else if (now.getMonth == 7) { nowDay = now.getDay + 14 }
 
+    /* Already opened days */
+    if (JSON.parse(localStorage.getItem("openedDays")) != null) {
+        openedDays = JSON.parse(localStorage.getItem("openedDays"))
+    } else {
+        localStorage.setItem("openedDays", JSON.stringify([]))
+        openedDays = [];
+    }
+
+    /* Didn't opened yet days */
+    if (JSON.parse(localStorage.getItem("avalaibleDays")) != null) {
+        avalaibleDays = JSON.parse(localStorage.getItem("avalaibleDays"));
+    } else {
+        localStorage.setItem("avalaibleDays", JSON.stringify([]));
+        avalaibleDays = [];
+    }
+    if ( !now.getDay in avalaibleDays) {
+        avalaibleDays.add(now.getDay);
+    }
+
+    if (getCookie("selectedDay") != null) { 
+        /* Getting selectedDay from cookies */
+        selectedDay = Number(getCookie("selectedDay"));
+
+        /* So if selectedDay is more than nowDay we change it to nowDay for better looking */
+        if (selectedDay > nowDay) {
+            selectedDay = nowDay;
+        }
+
+        /* Showing selectedDay in page */
+        const dayNumber = document.getElementById("day");
+        dayNumber.textContent = selectedDay; 
+    }
+
+    /* Preloading animations */
+    const animationFiles = [
+        'can open.mp4', "can't open.mp4", 'idle.mp4', 'opened idle.mp4', 
+        'can open.webm', "can't open.webm", 'idle.webm', 'opened idle.webm'
+    ];
+    const folderPath = './animations/';
+
+    Promise.all(animationFiles.map(file => fetch(folderPath + file).then(res => res.blob())))
+        .then(blobs => {
+
+            console.log('All animations got cached', blobs);
+        })
+        .catch(err => console.error('Preloading error:', err));
+
+    getAllDays()
+
+}
 
 
 /* 
