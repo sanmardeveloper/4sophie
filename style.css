@@ -50,9 +50,8 @@ body {
 
     z-index: 1000000;
 
-    min-width: 65%;
-    max-width: 75%;
-    max-width: 600px;
+    min-width: 350px;
+    max-width: 550px;
     max-height: 400px;
     min-height: 200px;
     
