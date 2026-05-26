@@ -21,29 +21,36 @@
             </div>
         </div>
 
-        <div class="gift-open-menu hidden">
+        <div class="undercover"></div>
+        <div class="gift-open-menu">
+            
+
             <div id="header">
                 <div id="gift-sticker-container"></div>
             </div>
+
+            <div class="gm_exit_button hidden" onclick="gm_exitMenu()">✖</div>
+
             <div id="main" class="ubuntu-regular">
-                <div class="circle-video ">
-                    <video id="circle-video" src="./videos/test_video_1.mp4" playsinline style="height: 200px; border-radius: 100px;" onclick="playCircleVideo()"></video>
-                    <div class="circle-video-time">
-                        01/07
-                    </div>
+                <div class="button-gm-left button-gm" onclick="gm_changePage(-1)">⬅</div>
+                <div class="circle-video">
+                    <video id="circle-video" playsinline style="height: 200px; border-radius: 100px;" onclick="playCircleVideo()">
+                        <source src="./videos/test_video_1.mp4" type="video/webm">
+                        <source src="./videos/test_video_1.mp4" type="video/mp4; codecs=hevc">
+                    </video>
+                    <div class="circle-video-time"></div>
                     <div id="video-control">
                         <div id="buttonToTheStart" onclick="cv_toTheStart()">⏮</div>
                         <div id="buttonToTheStart" onclick="cv_back()">◀</div>
                         <div id="buttonToTheStart" onclick="cv_next()">▶</div>
                     </div>
-                    </div>
-
-                <div class="compliment">
+                </div>
+                <div class="compliment hidden">
                     <div class="ubuntu-regular" id="pre-text">
                         Тут комплимент для тебя!
                     </div>
                     <div class="secret-container">
-                        <div class="ubuntu-bold" id="text">
+                        <div class="ubuntu-bold" id="compliment-text">
                             Ты у меня самая лучшая!
                         </div>
                         <div id="hover" onclick="openCompliment()">
@@ -51,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="giftCard">
+                <div class="giftCard hidden">
                     <div class="ubuntu-regular" id="pre-text">
                         И открыточка!
                     </div>
@@ -64,10 +71,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="button-gm-right button-gm" onclick="gm_changePage(1)">➡</div>
             </div>
 
-                
-            </div>
             <div id="footer">
                 С Днём Рождения! 🎉
             </div>

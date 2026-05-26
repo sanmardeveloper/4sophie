@@ -313,8 +313,49 @@ async function openGift() {
     }
 }
 
-function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = Number, GiftCard = Number, SpecialData = String) {
-    console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData)
+
+
+let gm_page = 1;
+
+function gm_changePage(value = Number) {
+    if (gm_page + value >= 1 && gm_page + value <= 3) {
+        gm_page += value
+    }
+    drawGMPage()
+}
+
+function drawGMPage(){
+    const circle_video = document.getElementsByClassName("circle-video")[0]
+    const compliment = document.getElementsByClassName("compliment")[0]
+    const giftCard = document.getElementsByClassName("giftCard")[0]
+
+    const exit_button = document.getElementsByClassName("gm_exit_button hidden")[0]
+
+    if (gm_page === 1) {
+        circle_video.classList.remove("hidden")
+        compliment.classList.add("hidden")
+        giftCard.classList.add("hidden")
+        exit_button.classList.add("hidden")
+    } else if (gm_page === 2) {
+        circle_video.classList.add("hidden")
+        compliment.classList.remove("hidden")
+        giftCard.classList.add("hidden")
+        exit_button.classList.add("hidden")
+    } else if (gm_page === 3) {
+        circle_video.classList.add("hidden")
+        compliment.classList.add("hidden")
+        giftCard.classList.remove("hidden")
+        exit_button.classList.remove("hidden")
+    }
+
+}
+
+function gm_exitMenu() {
+    const gift_open_menu = document.getElementsByClassName('gift-open-menu')[0]
+    const undercover = document.getElementsByClassName('undercover')[0]
+
+    gift_open_menu.classList.add("hidden")
+    undercover.classList.add("hidden")
 }
 
 /* Circle Video js */
@@ -396,6 +437,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = String, GiftCard = Number, SpecialData = String) {
+    console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData)
+
+    if (Type === 1 || Type === 2) {
+        const sources = circleVideo.getElementsByTagName('source');
+        sources[0].src = `./videos/gift_video` + stringify(CircleVideo) + `.webm`;
+        sources[1].src = `./videos/gift_video` + stringify(CircleVideo) + `.mp4`;
+        circleVideo.load();
+
+        const compliment_text = document.getElementById("compliment-text");
+        compliment_text.textContent = Compliment;
+
+        const giftCardImg = document.getElementById("giftCardImg")
+        giftCardImg.src = `./png/giftCards` + stringify(GiftCard) + `.jpg`;
+    } else if (Type === 3) {
+        window.location.href = "/" + SpecialData + ".html";
+    }
+
+}
 
 function openCompliment() {
     const hoverElement = document.getElementById('hover');
