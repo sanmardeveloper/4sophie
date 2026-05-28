@@ -235,7 +235,7 @@ function openGift() {
 
                 if (getCurrentFrame(giftAnimation) >= 6) {
 
-                    const type = Number(days[selectedDay - 1].content.match(/awdawd=(.*?)\/\//)?.[1]);
+                    const type = Number(days[selectedDay - 1].content.match(/type=(.*?)\/\//)?.[1]);
 
                     const image = days[selectedDay - 1].content.match(/png=(.*?),/)?.[1];
 
@@ -453,8 +453,7 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
         giftCardImg.src = `./pngs/giftCards/${GiftCard}.jpg`;
 
     } else if (Type === 3) {
-
-        window.location.href = "/" + SpecialData + ".html";
+        window.location.href = "/" + SpecialData + "/index.html";
     }
 
     undercover.classList.add("openedGM");
