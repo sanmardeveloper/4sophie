@@ -450,7 +450,7 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
 
         const giftCardImg = document.getElementById("giftCardImg");
 
-        giftCardImg.src = `./pngs/giftCards/` + stringify(GiftCard) + `.jpg`;
+        giftCardImg.src = `./pngs/giftCards/` + Image + `.jpg`;
 
     } else if (Type === 2) {
         window.location.href = "/" + SpecialData + "/index.html";
