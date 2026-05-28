@@ -496,6 +496,8 @@ async function initializate() {
         nowDay = now.getDate() - 15;
     } else if (now.getMonth() === 7) {
         nowDay = now.getDate() + 14;
+    } else {
+        nowDay = 1;
     }
 
     let openedDays;
@@ -532,7 +534,11 @@ async function initializate() {
 
     if (getCookie("selectedDay") != null) {
 
-        selectedDay = Number(getCookie("selectedDay"));
+        selectedDay = parseInt(getCookie("selectedDay"));
+
+        if (isNaN(selectedDay) || selectedDay < 1) {
+            selectedDay = 1;
+        }
 
         if (selectedDay > nowDay) {
             selectedDay = nowDay;
@@ -540,7 +546,7 @@ async function initializate() {
 
         const dayNumber = document.getElementById("day");
 
-        dayNumber.textContent = selectedDay;
+        dayNumber.textContent = selectedDay || 1;
     }
 
     const animationFiles = [
