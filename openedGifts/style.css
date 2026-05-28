@@ -1,0 +1,85 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        #sticker-container {
+            height: 90px;
+            margin-bottom: 6px;
+        }
+
+    }
+
+    
+}
+
+.hover {
+    position: fixed;
+    width: 1000000px;
+    height: 10000000px;
+    z-index: 10000000;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+    #title {
+        margin-top: 50vh;
+        position: fixed;
+        z-index: 10000001;
+        font-size: 40px;
+    }
+}
+
+
+main {
+    width: 70%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Настройка картинок внутри строки */
+.column {
+    flex: 1;             /* Картинки делят место поровну */
+    min-width: 0;        /* Позволяет картинкам сжиматься меньше их базового размера */
+    width: 100%;         /* Растягивает картинку на выделенную долю */
+    height: auto;        /* Сохраняет пропорции изображения */
+    object-fit: contain; /* Защищает от искажения */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ubuntu-light { font-family: "Ubuntu", sans-serif; font-weight: 300; font-style: normal; }
+.ubuntu-regular { font-family: "Ubuntu", sans-serif; font-weight: 400; font-style: normal; }
+.ubuntu-medium { font-family: "Ubuntu", sans-serif; font-weight: 500; font-style: normal; }
+.ubuntu-bold { font-family: "Ubuntu", sans-serif; font-weight: 700; font-style: normal; }
+.ubuntu-light-italic { font-family: "Ubuntu", sans-serif; font-weight: 300; font-style: italic; }
+.ubuntu-regular-italic { font-family: "Ubuntu", sans-serif; font-weight: 400; font-style: italic; }
+.ubuntu-medium-italic { font-family: "Ubuntu", sans-serif; font-weight: 500; font-style: italic; }
+.ubuntu-bold-italic { font-family: "Ubuntu", sans-serif; font-weight: 700; font-style: italic; }
