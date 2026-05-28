@@ -3,20 +3,20 @@ const bypassvalue = "v1";
 
 
 /* Funtions for cookies */
-async function setCookie(name, value, days = 30) {
+function setCookie(name, value, days = 30) {
     const seconds = days * 24 * 60 * 60;
     const cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${seconds}; path=/; SameSite=Lax; Secure`;
     document.cookie = cookieString;
 }
 
-async function getCookie(name) {
+function getCookie(name) {
     const matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-async function deleteCookie(name) {
+function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* Then users tapping continue on title screen (first time screen) */
-async function continue_gift() {
+function continue_gift() {
     const container_firstmeet = document.querySelector(".container_firstmeet");
     const sticker = document.getElementById("sticker-container");
     const main_container = document.querySelector(".main-container");
@@ -69,7 +69,7 @@ async function continue_gift() {
 }
 
 /* Check for user's first time */
-async function checkFirstMeet() {
+function checkFirstMeet() {
     const container_firstmeet = document.querySelector(".container_firstmeet");
     const sticker = document.getElementById("sticker-container");
     const main_container = document.querySelector(".main-container");
@@ -138,7 +138,7 @@ async function getAllDays() {
 }
 
 
-async function changeDay(direction) {
+function changeDay(direction) {
     const dayNumber = document.getElementById("day");
 
     if ((selectedDay + direction > 0) && (selectedDay + direction <= 30)) { 
@@ -153,7 +153,7 @@ async function changeDay(direction) {
     changeGiftAnimation(selectedDay);
 }
 
-async function changeGiftAnimation(day) {
+function changeGiftAnimation(day) {
     const giftAnimation = document.getElementsByClassName("giftAnimation")[0];
 
     if (!giftAnimation) {
@@ -182,11 +182,11 @@ async function changeGiftAnimation(day) {
     }
 }
 
-async function getCurrentFrame(videoElement, fps = 30) {
+function getCurrentFrame(videoElement, fps = 30) {
     return Math.floor(videoElement.currentTime * fps);
 }
 
-async function openGift() {
+function openGift() {
     let responseData = days[selectedDay - 1];
 
     /* Animations */
@@ -263,14 +263,14 @@ async function openGift() {
 
 let gm_page = 1;
 
-async function gm_changePage(value = Number) {
+function gm_changePage(value = Number) {
     if (gm_page + value >= 1 && gm_page + value <= 3) {
         gm_page += value
     }
     drawGMPage()
 }
 
-async function drawGMPage(){
+function drawGMPage(){
     const circle_video = document.getElementsByClassName("circle-video")[0]
     const compliment = document.getElementsByClassName("compliment")[0]
     const giftCard = document.getElementsByClassName("giftCard")[0]
@@ -303,7 +303,7 @@ let isCircleVideoPlaying = false;
 let circleVideo;
 let timeDisplay;
 
-async function formatTime(seconds) {
+function formatTime(seconds) {
     if (isNaN(seconds) || seconds === Infinity) return '00:00';
     const totalSeconds = Math.floor(seconds);
     const mins = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
@@ -311,7 +311,7 @@ async function formatTime(seconds) {
     return `${mins}:${secs}`;
 }
 
-async function updateTimeTextDirectly() {
+function updateTimeTextDirectly() {
     if (circleVideo && timeDisplay) {
         const current = formatTime(circleVideo.currentTime);
         const duration = formatTime(circleVideo.duration);
@@ -319,14 +319,14 @@ async function updateTimeTextDirectly() {
     }
 }
 
-async function circleVideoEveryFrame() {
+function circleVideoEveryFrame() {
     if (circleVideo && !circleVideo.paused && !circleVideo.ended) {
         updateTimeTextDirectly();
         requestAnimationFrame(circleVideoEveryFrame);
     }
 }
 
-async function playCircleVideo() {
+function playCircleVideo() {
     if (!circleVideo) return;
     if (!isCircleVideoPlaying) {
         circleVideo.play();
@@ -338,20 +338,20 @@ async function playCircleVideo() {
 
 
 
-async function cv_toTheStart() {
+function cv_toTheStart() {
     if (!circleVideo) return;
     circleVideo.currentTime = 0;
     circleVideo.play();
     isCircleVideoPlaying = true;
 }
 
-async function cv_back() {
+function cv_back() {
     if (!circleVideo) return;
     circleVideo.currentTime -= 1;
     updateTimeTextDirectly();
 }
 
-async function cv_next() {
+function cv_next() {
     if (!circleVideo) return;
     circleVideo.currentTime += 1;
     updateTimeTextDirectly();
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const undercover = document.getElementsByClassName('undercover')[0]
 const gift_open_menu = document.getElementsByClassName('gift-open-menu')[0];
 
-async function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = String, GiftCard = Number, SpecialData = String) {
+function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number, Compliment = String, GiftCard = Number, SpecialData = String) {
     console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData)
 
     if (Type === 1 || Type === 2) {
@@ -405,17 +405,17 @@ async function openGiftMenu(Type = Number, Image = Number, CircleVideo = Number,
     gift_open_menu.classList.add("openedGM")
 }
 
-async function gm_exitMenu() {
+function gm_exitMenu() {
     undercover.classList.remove("openedGM")
     gift_open_menu.classList.remove("openedGM")
 }
 
-async function openCompliment() {
+function openCompliment() {
     const hoverElement = document.getElementById('hover');
     hoverElement.classList.add('opened');
 }
 
-async function openGiftCard() {
+function openGiftCard() {
     const hoverGiftCardElement = document.getElementById('hoverGiftCard');
     hoverGiftCardElement.classList.add('opened');
 }
@@ -427,7 +427,7 @@ document.addEventListener('visibilitychange', function() {
   }
 });
 
-async function initializate() {
+function initializate() {
     const now = new Date();
     if (now.getMonth == 6) { nowDay = now.getDay - 15 }
     else if (now.getMonth == 7) { nowDay = now.getDay + 14 }
