@@ -434,7 +434,7 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
 
     console.log(Type, Image, CircleVideo, Compliment, GiftCard, SpecialData);
 
-    if (Type === 1 || Type === 2) {
+    if (Type === 1 || Type === 3) {
 
         const sources = circleVideo.getElementsByTagName('source');
 
@@ -452,7 +452,7 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
 
         giftCardImg.src = `./pngs/giftCards/${GiftCard}.jpg`;
 
-    } else if (Type === 3) {
+    } else if (Type === 2) {
         window.location.href = "/" + SpecialData + "/index.html";
     }
 
