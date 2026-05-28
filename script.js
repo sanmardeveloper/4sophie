@@ -438,9 +438,9 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
 
         const sources = circleVideo.getElementsByTagName('source');
 
-        sources[0].src = `./videos/gift_video${CircleVideo}.webm`;
+        sources[0].src = `./videos/gift_video` + CircleVideo + `.webm`;
 
-        sources[1].src = `./videos/gift_video${CircleVideo}.mp4`;
+        sources[1].src = `./videos/gift_video` + CircleVideo + `.mp4`;
 
         circleVideo.load();
 
@@ -450,7 +450,7 @@ function openGiftMenu(Type, Image, CircleVideo, Compliment, GiftCard, SpecialDat
 
         const giftCardImg = document.getElementById("giftCardImg");
 
-        giftCardImg.src = `./pngs/giftCards/${GiftCard}.jpg`;
+        giftCardImg.src = `./pngs/giftCards/` + GiftCard + `.jpg`;
 
     } else if (Type === 2) {
         window.location.href = "/" + SpecialData + "/index.html";
