@@ -1,7 +1,7 @@
 const DBAdress = "https://aiwudhaiwufdja.loca.lt";
 let days = [];
 
-function alldays() {
+async function alldays() {
     let responseData = null;
 
     try {
@@ -41,7 +41,7 @@ function updateDaysStatus() {
             imgElement.src = "./pngs/opened idle.png";
         }
     });
-    
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     alldays();
-    updateDaysStatus();
+    await updateDaysStatus();
 });
 
 
