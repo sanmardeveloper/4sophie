@@ -590,6 +590,6 @@ async function initializate() {
 
 
 
-function to_the_all_gifts() {
-    window.location.href = "4sophie/openedGifts/index.html";
+function to_the_all_gifts(adress) {
+    window.location.href = adress;
 }
