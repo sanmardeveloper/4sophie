@@ -1,4 +1,7 @@
 const DBAdress = "https://aiwudhaiwufdja.loca.lt";
+const bypassvalue = "v1";
+
+
 let days = [];
 
 async function alldays() {
