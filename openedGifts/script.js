@@ -105,7 +105,7 @@ function end_first_meet() {
 }
 
 function backPG() {
-    window.location.href = '/';
+    window.location.href = '/4sophie/';
 }
 
 
