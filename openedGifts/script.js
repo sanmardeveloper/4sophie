@@ -78,7 +78,7 @@ function updateDaysStatus() {
 
         const data = parseContent(day.content);
 
-        if (data.opened === "1") {
+        if (data.opened === "0") {
             imgElement.src = "./pngs/opened idle.png";
         }
     });
