@@ -62,7 +62,9 @@ main {
     object-fit: contain; /* Защищает от искажения */
 }
 
-
+.hidden {
+    display: none !important; 
+}
 
 
 

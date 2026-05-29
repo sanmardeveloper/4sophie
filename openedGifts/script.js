@@ -41,7 +41,7 @@ function updateDaysStatus() {
             imgElement.src = "./pngs/opened idle.png";
         }
     });
-
+    
 }
 
 document.addEventListener('DOMContentLoaded', () => {

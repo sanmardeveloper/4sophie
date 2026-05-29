@@ -586,3 +586,10 @@ async function initializate() {
 4. Make animations system (a function for showing animations) (already 50/50)
 5. Make better UX
 */
+
+
+
+
+function to_the_all_gifts() {
+    window.location.href = "/openedGifts/index.html";
+}
