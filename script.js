@@ -1,4 +1,4 @@
-const DBAdress = "https://aiwudhaiwufdja.loca.lt";
+const DBAdress = "https://aiwudhaiwufdja.localtunnel.me";
 const bypassvalue = "v1";
 
 function setCookie(name, value, days = 30) {
