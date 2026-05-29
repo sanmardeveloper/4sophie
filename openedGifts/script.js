@@ -62,7 +62,7 @@ function updateDaysStatus() {
     daysData.forEach(day => {
         const imgElement = document.querySelector(`img[data-id="${day.id}"]`);
         
-        const v = days[selectedDay - 1].content.match(/opened=(.*?),/)?.[1];
+        const v = days[day].content.match(/opened=(.*?),/)?.[1];
 
         if (imgElement && v === 1) {
             imgElement.src = "./pngs/opened idle.png";
