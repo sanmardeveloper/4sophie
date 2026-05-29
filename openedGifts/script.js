@@ -2,6 +2,25 @@ const DBAdress = "https://aiwudhaiwufdja.loca.lt";
 const bypassvalue = "v1";
 
 
+//#region Cookies Functions
+function setCookie(name, value, days = 30) {
+    const seconds = days * 24 * 60 * 60;
+    const cookieString = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; max-age=${seconds}; path=/; SameSite=Lax; Secure`;
+    document.cookie = cookieString;
+}
+
+function getCookie(name) {
+    const matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function deleteCookie(name) {
+    setCookie(name, "", -1);
+}
+//#endregion
+
 let days = [];
 
 async function alldays() {
@@ -45,6 +64,7 @@ function updateDaysStatus() {
         
         if (imgElement && !day.available) {
             imgElement.src = "./pngs/opened idle.png";
+            imgElement.textContent = day.id + " день";
         }
     });
 
@@ -64,8 +84,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateDaysStatus();
 });
 
+function fstMeet() {
+    const FM = document.getElementsByClassName("FM")[0]
+    if (getCookie("FMOG") || getCookie("FMOG") == false) {
+        FM.remove()
+    } else {
+        FM.classList.remove("hidden")
+    }
+}
+
 async function initializate() {
     await alldays()
+    fstMeet()
+}
+
+function end_first_meet() {
+    const FM = document.getElementsByClassName("FM")[0]
+    FM.remove()
+    setCookie("FMOG", false, 300)
+}
+
+function backPG() {
+    window.location.href = '/';
 }
 
 

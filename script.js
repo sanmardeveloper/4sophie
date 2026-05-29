@@ -133,6 +133,7 @@ function checkFirstMeet() {
 function restartAnimations() {
     deleteCookie("firstmeet");
     deleteCookie("selectedDay");
+    deleteCookie("FMOG")
     location.reload();
 }
 
@@ -590,6 +591,6 @@ async function initializate() {
 
 
 
-function to_the_all_gifts(adress) {
-    window.location.href = adress;
+function to_the_all_gifts() {
+    window.location.href = 'openedGifts/index.html';
 }
