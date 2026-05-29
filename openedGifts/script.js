@@ -57,19 +57,20 @@ function get_all_days() {
 }
 
 function updateDaysStatus() {
-    const daysData = get_all_days(); 
+    const daysData = get_all_days();
 
     daysData.forEach(day => {
         const imgElement = document.querySelector(`img[data-id="${day.id}"]`);
-        
-        const v = days[day].content.match(/opened=(.*?),/)?.[1];
 
-        if (imgElement && v === 1) {
+        if (!imgElement) return;
+
+        const match = day.content?.match(/opened=(.*?),/);
+        const opened = match?.[1];
+
+        if (opened === "1") {
             imgElement.src = "./pngs/opened idle.png";
-            imgElement.textContent = day.id + " день";
         }
     });
-
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -109,10 +110,3 @@ function end_first_meet() {
 function backPG() {
     window.location.href = '/4sophie/';
 }
-
-
-document.getElementsByClassName("row")[0]
-document.getElementsByClassName("row")[1]
-document.getElementsByClassName("row")[2]
-document.getElementsByClassName("row")[3]
-document.getElementsByClassName("row")[4]
