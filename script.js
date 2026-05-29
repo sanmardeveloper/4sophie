@@ -350,7 +350,8 @@ async function updateDayAvailable() {
         });
 
         if (response.ok) {
-            console.log(response.json);
+            const data = await response.json();
+            console.log(data);
         } else if (response.status === 404) {
             console.error("Такого дня нет в базе данных");
         }
