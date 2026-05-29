@@ -18,6 +18,37 @@ function deleteCookie(name) {
     setCookie(name, "", -1);
 }
 
+
+function parseDayContent(content) {
+    if (!content) return {};
+
+    const result = {};
+
+    content.split(",").forEach(part => {
+        const trimmed = part.trim();
+        const eqIndex = trimmed.indexOf("=");
+
+        if (eqIndex === -1) return;
+
+        const key = trimmed.slice(0, eqIndex).trim();
+        const value = trimmed.slice(eqIndex + 1).trim();
+
+        result[key] = value;
+    });
+
+    return result;
+}
+
+
+
+
+
+
+
+
+
+
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 let nowDay = 0;
@@ -236,17 +267,13 @@ async function openGift() {
 
                 if (getCurrentFrame(giftAnimation) >= 6) {
 
-                    const type = Number(days[selectedDay - 1].content.match(/type=(.*?)\/\//)?.[1]);
+                    const data = parseDayContent(days[selectedDay - 1].content);
 
-                    const image = days[selectedDay - 1].content.match(/png=(.*?),/)?.[1];
-
-                    const circle_video = days[selectedDay - 1].content.match(/circle_video=(.*?),/)?.[1];
-
-                    const compliment = days[selectedDay - 1].content.match(/compliment=(.*?),/)?.[1];
-
-                    const giftcard = days[selectedDay - 1].content.match(/giftcard=(.*?),/)?.[1];
-
-                    const special_data = days[selectedDay - 1].special_data;
+                    const type = Number(data.type?.split("//")[0] ?? 0);
+                    const image = data.png;
+                    const circle_video = data.circle_video;
+                    const compliment = data.compliment;
+                    const giftcard = data.giftcard;
 
                     openGiftMenu(
                         type,

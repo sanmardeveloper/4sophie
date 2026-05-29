@@ -23,6 +23,19 @@ function deleteCookie(name) {
 
 let days = [];
 
+function parseContent(content) {
+    const map = {};
+
+    content.split(",").forEach(part => {
+        const [key, value] = part.split("=").map(s => s?.trim());
+        if (key && value !== undefined) {
+            map[key] = value;
+        }
+    });
+
+    return map;
+}
+
 async function alldays() {
     let responseData = null;
 
@@ -61,13 +74,11 @@ function updateDaysStatus() {
 
     daysData.forEach(day => {
         const imgElement = document.querySelector(`img[data-id="${day.id}"]`);
-
         if (!imgElement) return;
 
-        const match = day.content?.match(/opened=(.*?),/);
-        const opened = match?.[1];
+        const data = parseContent(day.content);
 
-        if (opened === "1") {
+        if (data.opened === "1") {
             imgElement.src = "./pngs/opened idle.png";
         }
     });
