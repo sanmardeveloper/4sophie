@@ -53,9 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
         path: './stickers/sticker.json'
     });
 
-    alldays();
-    await updateDaysStatus();
+    initializate()
+    updateDaysStatus
 });
+
+async function initializate() {
+    await alldays()
+}
 
 
 document.getElementsByClassName("row")[0]
