@@ -19,8 +19,11 @@ async function alldays() {
 
             days = responseData
 
-            const loadingScreen = document.getElementsByClassName('hover')[0]
-            loadingScreen.remove()
+            const loadingScreen = document.getElementsByClassName('hover')[0];
+
+            if (loadingScreen) {
+                loadingScreen.remove();
+            }
         } else if (response.status === 404) {
             console.error("Такого дня нет в базе данных");
         }
@@ -47,7 +50,7 @@ function updateDaysStatus() {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     lottie.loadAnimation({
         container: document.getElementById('sticker-container'),
         renderer: 'svg',
@@ -56,8 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         path: './stickers/sticker.json'
     });
 
-    initializate()
-    updateDaysStatus
+    await initializate();
+
+    updateDaysStatus();
 });
 
 async function initializate() {
