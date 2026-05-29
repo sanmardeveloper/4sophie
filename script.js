@@ -210,7 +210,7 @@ function getCurrentFrame(videoElement, fps = 30) {
     return Math.floor(videoElement.currentTime * fps);
 }
 
-function openGift() {
+async function openGift() {
 
     if (!days[selectedDay - 1]) return;
 
@@ -261,6 +261,8 @@ function openGift() {
                 }
             }
 
+            updateDayAvailable()
+
             function restoreOriginal() {
 
                 giftAnimation.loop = true;
@@ -308,6 +310,27 @@ function openGift() {
             });
         }
     }
+}
+
+async function updateDayAvailable() {
+    try {
+        const response = await fetch(DBAdress + `/set_day_status${selectedDay}`, {
+            method: 'SET',
+            headers: {
+                "bypass-tunnel-reminder": bypassvalue
+            }
+        });
+
+        if (response.ok) {
+            console.log(response.json);
+        } else if (response.status === 404) {
+            console.error("Такого дня нет в базе данных");
+        }
+
+    } catch (error) {
+        console.error("Ошибка сети:", error);
+    }
+
 }
 
 function gm_changePage(value = 0) {
