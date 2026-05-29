@@ -343,7 +343,7 @@ async function openGift() {
 async function updateDayAvailable() {
     try {
         const response = await fetch(DBAdress + `/set_day_status?day_id=${selectedDay}&available=true`, {
-            method: 'SET',
+            method: "POST",
             headers: {
                 "bypass-tunnel-reminder": bypassvalue
             }
