@@ -274,6 +274,7 @@ async function openGift() {
                     const circle_video = data.circle_video;
                     const compliment = data.compliment;
                     const giftcard = data.giftcard;
+                    const special_data = days[selectedDay - 1].special_data
 
                     openGiftMenu(
                         type,
